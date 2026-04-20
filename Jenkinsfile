@@ -14,7 +14,19 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 3000:3000 $IMAGE_NAME'
+              sh '''
+        # Create volume (if not exists)
+        docker volume create my-node-volume || true
+
+        # Remove old container
+        docker rm -f my-node-app-container || true
+
+        # Run container with volume
+        docker run -d -p 3000:3000 \
+        --name my-node-app-container \
+        -v my-node-volume:/app/data \
+        my-node-app
+        '''
             }
         }
     }
