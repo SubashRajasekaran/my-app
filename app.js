@@ -1,9 +1,6 @@
-const http = require("http");
+console.log("Hello from Jenkins CI/CD!");
 
-const server = http.createServer((req, res) => {
-  res.end("Hello from Jenkins CI/CD!");
-});
-
-server.listen(3000, () => {
-  console.log("Server running on port 3000");
-});
+// Keep container running
+setInterval(() => {
+    console.log("App is running...");
+}, 5000);
